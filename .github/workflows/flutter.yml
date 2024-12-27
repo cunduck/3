@@ -18,7 +18,7 @@ jobs:
 
       - name: Extract ZIP file
         run: |
-          unzip assets/project.zip -d flutter_project
+          unzip project.zip -d flutter_project
 
       - name: Set up Flutter
         uses: subosito/flutter-action@v2
