@@ -1,0 +1,44 @@
+name: Build Flutter APK from ZIP
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Extract ZIP file
+        run: |
+          # Path ke file ZIP di repositori kamu
+          unzip project.zip -d flutter_project
+          cd flutter_project
+
+      - name: Set up Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          flutter-version: 'stable'
+
+      - name: Install dependencies
+        run: |
+          cd flutter_project
+          flutter pub get
+
+      - name: Build APK
+        run: |
+          cd flutter_project
+          flutter build apk --release
+
+      - name: Upload APK artifact
+        uses: actions/upload-artifact@v2
+        with:
+          name: app-release.apk
+          path: flutter_project/build/app/outputs/flutter-apk/app-release.apk
