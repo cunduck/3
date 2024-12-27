@@ -10,7 +10,7 @@ on:
 
 jobs:
   build:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04  # Change to a specific version
 
     steps:
       - name: Checkout code
@@ -20,10 +20,13 @@ jobs:
         run: |
           unzip project.zip -d flutter_project
 
+      - name: Print environment variables
+        run: env  # Optional: for debugging
+
       - name: Set up Flutter
-        uses: subosito/flutter-action@v2
+        uses: subosito/flutter-action@v3  # Use the latest version
         with:
-          flutter-version: 'stable'
+          flutter-version: '3.7.0'  # Replace with the latest stable version
 
       - name: Cache Flutter dependencies
         uses: actions/cache@v2
